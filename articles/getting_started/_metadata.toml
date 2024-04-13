@@ -1,0 +1,17 @@
+title = "Getting started"
+description = "Start your journey with the go-to Discord bot for new & existing servers."
+
+[[articles]]
+title = "What is Marvo?"
+description = "Discover how Marvo can transform your server."
+path = "./what_is_marvo.md"
+
+[[articles]]
+title = "Setup & Onboarding"
+description = "Get Marvo up and running in your server."
+path = "./setup_and_onboarding.md"
+
+[[articles]]
+title = "Plugin Overview"
+description = "Explore the plugins Marvo has to offer."
+path = "./plugin_overview.md"
