@@ -76,19 +76,7 @@ If either of these are not complete, your Interactions Endpoint URL will not be 
 
 When adding your Interactions Endpoint URL, Discord will send a `POST` request with a `PING` payload with a `type: 1` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has the same `type: 1`). Details about interaction responses are in the [Receiving and Responding documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
 
-<Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING interactions" icon="code">
 To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:
-
-```py
-@app.route('/', methods=['POST'])
-def my_command():
-    if request.json["type"] == 1:
-        return jsonify({
-            "type": 1
-        })
-```
-
-</Collapsible>
 
 ###### Validating Security Request Headers
 
@@ -100,55 +88,6 @@ Each interaction is sent with the following headers:
 - `X-Signature-Timestamp` as a timestamp
 
 Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. If the signature fails validation, your app should respond with a `401` error code.
-
-<Collapsible title="Validating Security Headers" description="Code example for validating security-related request headers" icon="code">
-Below are some code examples that show how to validate the headers sent in interactions requests.
-
-**JavaScript**
-
-```js
-const nacl = require("tweetnacl");
-
-// Your public key can be found on your application in the Developer Portal
-const PUBLIC_KEY = "APPLICATION_PUBLIC_KEY";
-
-const signature = req.get("X-Signature-Ed25519");
-const timestamp = req.get("X-Signature-Timestamp");
-const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
-
-const isVerified = nacl.sign.detached.verify(
-  Buffer.from(timestamp + body),
-  Buffer.from(signature, "hex"),
-  Buffer.from(PUBLIC_KEY, "hex")
-);
-
-if (!isVerified) {
-  return res.status(401).end("invalid request signature");
-}
-```
-
-**Python**
-
-```py
-from nacl.signing import VerifyKey
-from nacl.exceptions import BadSignatureError
-
-# Your public key can be found on your application in the Developer Portal
-PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
-
-verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
-
-signature = request.headers["X-Signature-Ed25519"]
-timestamp = request.headers["X-Signature-Timestamp"]
-body = request.data.decode("utf-8")
-
-try:
-    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
-except BadSignatureError:
-    abort(401, 'invalid request signature')
-```
-
-</Collapsible>
 
 In addition to ensuring your app validates security-related request headers at the time of saving your endpoint, Discord will also perform automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL and alert you via email and System DM.
 
