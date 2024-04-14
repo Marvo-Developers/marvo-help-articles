@@ -1,0 +1,5 @@
+[[articles]]
+title = "Example article"
+description = "Example description of an article."
+url_param = "example-article"
+path = "example_article.md"

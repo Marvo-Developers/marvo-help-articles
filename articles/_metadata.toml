@@ -1,4 +1,13 @@
 [[categories]]
-title = "Getting started"
+title = "Getting Started"
 description = "Start your journey with the go-to Discord bot for new & existing servers."
+short_description = "Essential Marvo features explained."
+url_param = "getting-started"
 path = "getting_started"
+
+[[categories]]
+title = "Account Settings"
+description = "Customize your account to your liking and manage your data."
+short_description = "Customize your account."
+url_param = "account-settings"
+path = "account_settings"
