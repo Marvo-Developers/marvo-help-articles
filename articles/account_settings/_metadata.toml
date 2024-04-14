@@ -1,5 +1,6 @@
 [[articles]]
 title = "Example article"
 description = "Example description of an article."
+icon = "vial"
 url_param = "example-article"
 path = "example_article.md"
