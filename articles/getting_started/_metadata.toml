@@ -2,7 +2,7 @@
 title = "What is Marvo?"
 description = "Discover how Marvo can transform your server."
 icon = "question"
-sections = ["Overview of Interactions"]
+sections = []
 url_param = "what-is-marvo"
 path = "what_is_marvo.md"
 
